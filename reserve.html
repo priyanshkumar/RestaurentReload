@@ -7,15 +7,14 @@
     <title>Hot Restaurant - Reservation</title>
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="style.css" />
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      crossorigin="anonymous"
-    ></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -66,6 +65,35 @@
         </div>
       </div>
     </div>
-    <script src="./app.js"></script>
+    <script>
+      $(".submit").on("click", function(e) {
+        e.preventDefault();
+        var newReservation = {
+          name: $("#name")
+            .val()
+            .trim(),
+          number: $("#phone")
+            .val()
+            .trim(),
+          id: $("#id")
+            .val()
+            .trim(),
+          email: $("#email")
+            .val()
+            .trim()
+        };
+        $.post("/api/newReserve", newReservation, function(data) {
+          // If a table is available... tell user they are booked.
+          if (!data) {
+            alert("Yay! You are officially booked!");
+          }
+
+          // If a table is available... tell user they on the waiting list.
+          else {
+            alert("Sorry you are on the wait list");
+          }
+        });
+      });
+    </script>
   </body>
 </html>

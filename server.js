@@ -7,7 +7,6 @@ var app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/", express.static(path.join(__dirname, "")));
 
 //array to store data
 var table = [
@@ -51,16 +50,14 @@ app.listen(port, function() {
   console.log(`server running on port ${port}`);
 });
 
-app.post("/app/newReserve", function(req, res) {
-  var reqbody = req.body();
+app.post("/api/newReserve", function(req, res) {
+  var reqbody = req.body;
 
-  reqbody.routeName = newcharacter.name.replace(/\s+/g, "").toLowerCase();
-
-  if (reservation.length > 5) {
+  if (table.length > 5) {
     waitlist.push(reqbody);
     res.json(true);
   } else {
-    reservation.push(reqbody);
+    table.push(reqbody);
     res.json(false);
   }
 });
